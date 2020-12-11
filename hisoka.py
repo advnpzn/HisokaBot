@@ -61,6 +61,9 @@ def butterfly(update:Update,context:CallbackContext)->None:
     update.message.reply_photo(open('output.jpg', 'rb'))
     os.remove('output.jpg')
 
+def help(update:Update,context:CallbackContext)->None:
+    update.message.reply_photo(open('templates/help.jpg', 'rb'))
+
 
 if __name__ == "__main__":
     
@@ -73,6 +76,7 @@ if __name__ == "__main__":
     dp.add_handler(CommandHandler("cat",cat,run_async = True))
     dp.add_handler(CommandHandler("forme",forme,run_async = True))
     dp.add_handler(CommandHandler("butterfly",butterfly,run_async = True))
+    dp.add_handler(CommandHandler("help",help,run_async = True))
 
     updater.start_polling()
     updater.idle()
