@@ -21,7 +21,8 @@ def drake_meme():
     #draw.text((210,200),text=USERNAME,fill=(3, 132, 252),font=fnt)
 
     meme.save('output.jpg')
-    
+    os.remove(PFP_PATH+'file_0.jpg')
+    os.remove(PFP_PATH+'file_1.jpg')
 
 def batman_slap():
     meme = Image.open(MEME_PATH+'batman_slap.jpg')
@@ -36,6 +37,8 @@ def batman_slap():
     #draw.text((248,134),text=str(USERNAME),fill=(98, 3, 252),font=fnt)
 
     meme.save('output.jpg')
+    os.remove(PFP_PATH+'file_0.jpg')
+    os.remove(PFP_PATH+'file_1.jpg')
     
 
 def ew_stepped_in_shit():
@@ -51,7 +54,8 @@ def ew_stepped_in_shit():
     #draw.text((210,200),text=USERNAME,fill=(3, 132, 252),font=fnt)
 
     meme.save('output.jpg')
-    
+    os.remove(PFP_PATH+'file_0.jpg')
+    os.remove(PFP_PATH+'file_1.jpg')
 
 def is_that_butterfly():
     meme = Image.open(MEME_PATH+'is_that_butterfly.jpg')
@@ -66,7 +70,8 @@ def is_that_butterfly():
     #draw.text((210,200),text=USERNAME,fill=(3, 132, 252),font=fnt)
 
     meme.save('output.jpg')
-    
+    os.remove(PFP_PATH+'file_0.jpg')
+    os.remove(PFP_PATH+'file_1.jpg')
 
 def woman_yelling_at_cat():
     meme = Image.open(MEME_PATH+'woman_yelling_at_cat.jpg')
@@ -81,7 +86,8 @@ def woman_yelling_at_cat():
     #draw.text((210,200),text=USERNAME,fill=(3, 132, 252),font=fnt)
 
     meme.save('output.jpg')
-    
+    os.remove(PFP_PATH+'file_0.jpg')
+    os.remove(PFP_PATH+'file_1.jpg')
 
 def is_for_me():
     meme = Image.open(MEME_PATH+'is_for_me.jpg')
@@ -95,4 +101,5 @@ def is_for_me():
     #draw.text((210,200),text=USERNAME,fill=(3, 132, 252),font=fnt)
 
     meme.save('output.jpg')
-    
+    os.remove(PFP_PATH+'file_0.jpg')
+    os.remove(PFP_PATH+'file_1.jpg')
