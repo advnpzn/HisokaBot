@@ -74,7 +74,7 @@ def butterfly(update:Update,context:CallbackContext)->None:
 
 if __name__ == "__main__":
     
-    bot_token = os.environ.get(BOT_TOKEN,"")
+    bot_token = os.environ.get("BOT_TOKEN","")
     updater = Updater(bot_token,use_context = True)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("slap",slap,run_async = True))
