@@ -17,15 +17,13 @@ def quoteUserName(name):
 
 def getpic(update:Update,context:CallbackContext)->None:
     try:
-        user = update.message.from_user
         #USERNAME = user['username']
         #USERNAME = quoteUserName(USERNAME)
-        user_pfp = user.get_profile_photos().photos[0][0].get_file().download()
+        user_pfp = update.message.from_user.get_profile_photos().photos[0][0].get_file().download()
         shutil.move(user_pfp,'pfp/file_0.jpg')
-        quote = update.message.reply_to_message.from_user
         #QUOTENAME = quote['username']
         #QUOTENAME = quoteUserName(QUOTENAME)
-        quote_pfp = quote.get_profile_photos().photos[0][0].get_file().download()
+        user_pfp = update.message.reply_to_message.from_user.get_profile_photos().photos[0][0].get_file().download()
         shutil.move(quote_pfp,'pfp/file_1.jpg')
     except AttributeError:
         update.message.reply_text("Must reply to a User!")
