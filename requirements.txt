@@ -1,2 +1,2 @@
-pip install python-telegram-bot
-pip install pillow
+python-telegram-bot
+pillow
