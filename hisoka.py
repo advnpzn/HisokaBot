@@ -1,4 +1,4 @@
-from telegram import Update,Bot
+from telegram import Update
 import shutil
 import os
 from telegram.ext import Updater,CommandHandler,Dispatcher,CallbackContext
@@ -6,31 +6,27 @@ from imgProcess import *
 
 
 
-
+'''
 def quoteUserName(name):
     if len(name) > 10 and len(name) <= 25:
         name = name[:len(name)//2]+"\n"+name[len(name)//2:]
     else:
         name = name[:len(name)//3]+"\n"+name[(len(name)//3):(len(name)//3)+len(name)//3]+"\\n"+name[len(name)//3:]
     return name
+'''
 
 def getpic(update:Update,context:CallbackContext)->None:
     try:
-        index = 0
         user = update.message.from_user
-        USERNAME = user['username']
-        USERNAME = quoteUserName(USERNAME)
-        user_pfp = user.get_profile_photos().photos[0][0]
-        file = context.bot.get_file(user_pfp).download()
-        shutil.move(file,f'pfp/file_{index}.jpg')
-        index+=1
+        #USERNAME = user['username']
+        #USERNAME = quoteUserName(USERNAME)
+        user_pfp = user.get_profile_photos().photos[0][0].get_file().download()
+        shutil.move(user_pfp,'pfp/file_0.jpg')
         quote = update.message.reply_to_message.from_user
-        QUOTENAME = quote['username']
-        QUOTENAME = quoteUserName(QUOTENAME)
-        quote_pfp = quote.get_profile_photos().photos[0][0]
-        file = context.bot.get_file(quote_pfp).download()
-        shutil.move(file,f'pfp/file_{index}.jpg')
-        index+=1
+        #QUOTENAME = quote['username']
+        #QUOTENAME = quoteUserName(QUOTENAME)
+        quote_pfp = quote.get_profile_photos().photos[0][0].get_file().download()
+        shutil.move(quote_pfp,'pfp/file_1.jpg')
     except AttributeError:
         update.message.reply_text("Must reply to a User!")
     
