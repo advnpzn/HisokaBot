@@ -1,1 +1,1 @@
-worker: python3 hisoka.py
+web: python3 hisoka.py
