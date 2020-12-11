@@ -74,7 +74,8 @@ def butterfly(update:Update,context:CallbackContext)->None:
 
 if __name__ == "__main__":
     
-    updater = Updater("1458696480:AAHjbMkMvfZbZ5YHIeVyyMgFlKl--_Q6oSI",use_context = True)
+    bot_token = os.environ.get(BOT_TOKEN,"")
+    updater = Updater(bot_token,use_context = True)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("slap",slap,run_async = True))
     dp.add_handler(CommandHandler("drake",drake,run_async = True))
