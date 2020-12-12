@@ -49,25 +49,25 @@ def butterfly(update:Update,context:CallbackContext)->None:
     update.message.reply_photo(open('output.jpg', 'rb'))
     os.remove('output.jpg')
 
-def angry_pakistan_fan(update:Update,context:CallbackContext)->None:
+def bruh(update:Update,context:CallbackContext)->None:
     get(update,context)
     angry_pakistan_fan()
     update.message.reply_photo(open('output.jpg', 'rb'))
     os.remove('output.jpg')
 
-def strong_doge_weak_doge(update:Update,context:CallbackContext)->None:
+def strong(update:Update,context:CallbackContext)->None:
     get(update,context)
     strong_doge_weak_doge()
     update.message.reply_photo(open('output.jpg', 'rb'))
     os.remove('output.jpg')
 
-def weak_doge(update:Update,context:CallbackContext)->None:
+def weak(update:Update,context:CallbackContext)->None:
     get(update,context)
     weak_doge()
     update.message.reply_photo(open('output.jpg', 'rb'))
     os.remove('output.jpg')
 
-def facts_book(update:Update,context:CallbackContext)->None:
+def fact(update:Update,context:CallbackContext)->None:
     get(update,context)
     facts_book()
     update.message.reply_photo(open('output.jpg', 'rb'))
@@ -89,10 +89,10 @@ if __name__ == "__main__":
     dp.add_handler(CommandHandler("cat",cat,run_async = True))
     dp.add_handler(CommandHandler("forme",forme,run_async = True))
     dp.add_handler(CommandHandler("butterfly",butterfly,run_async = True))
-    dp.add_handler(CommandHandler("fact",facts_book,run_async = True))
-    dp.add_handler(CommandHandler("weak",weak_doge,run_async = True))
-    dp.add_handler(CommandHandler("strong",strong_doge_weak_doge,run_async = True))
-    dp.add_handler(CommandHandler("bruh",angry_pakistan_fan,run_async = True))
+    dp.add_handler(CommandHandler("fact",fact,run_async = True))
+    dp.add_handler(CommandHandler("weak",weak,run_async = True))
+    dp.add_handler(CommandHandler("strong",stronge,run_async = True))
+    dp.add_handler(CommandHandler("bruh",bruh,run_async = True))
     dp.add_handler(CommandHandler("commands",commands,run_async = True))
 
     updater.start_polling()
