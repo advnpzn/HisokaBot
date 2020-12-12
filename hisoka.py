@@ -91,9 +91,9 @@ if __name__ == "__main__":
     dp.add_handler(CommandHandler("butterfly",butterfly,run_async = True))
     dp.add_handler(CommandHandler("fact",fact,run_async = True))
     dp.add_handler(CommandHandler("weak",weak,run_async = True))
-    dp.add_handler(CommandHandler("strong",stronge,run_async = True))
+    dp.add_handler(CommandHandler("strong",strong,run_async = True))
     dp.add_handler(CommandHandler("bruh",bruh,run_async = True))
-    dp.add_handler(CommandHandler("commands",commands,run_async = True))
+    dp.add_handler(CommandHandler("availCommands",commands,run_async = True))
 
     updater.start_polling()
     updater.idle()
