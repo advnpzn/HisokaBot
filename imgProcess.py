@@ -39,7 +39,6 @@ def batman_slap():
     meme.save('output.jpg')
     os.remove(PFP_PATH+'file_0.jpg')
     os.remove(PFP_PATH+'file_1.jpg')
-    
 
 def ew_stepped_in_shit():
     meme = Image.open(MEME_PATH+'ew_stepped_in_shit.jpg')
@@ -95,6 +94,69 @@ def is_for_me():
     
 
     meme.paste(img1,(129,79))
+
+    #draw = ImageDraw.Draw(meme)
+    #draw.text((210,0),text=QUOTENAME,fill=(3, 132, 252),font=fnt)
+    #draw.text((210,200),text=USERNAME,fill=(3, 132, 252),font=fnt)
+
+    meme.save('output.jpg')
+    os.remove(PFP_PATH+'file_0.jpg')
+    os.remove(PFP_PATH+'file_1.jpg')
+
+def weak_doge():
+    meme = Image.open(MEME_PATH+'weak_doge.jpg')
+    img1 = Image.open(PFP_PATH+'file_0.jpg').resize((76,66))
+    #img2 = Image.open(PFP_PATH+'file_1.jpg').resize((92,98))
+
+    #meme.paste(img2,(65,189))
+    meme.paste(img1,(60,33))
+
+    #draw = ImageDraw.Draw(meme)
+    #draw.text((210,0),text=QUOTENAME,fill=(3, 132, 252),font=fnt)
+    #draw.text((210,200),text=USERNAME,fill=(3, 132, 252),font=fnt)
+
+    meme.save('output.jpg')
+    os.remove(PFP_PATH+'file_0.jpg')
+    os.remove(PFP_PATH+'file_1.jpg')
+
+def strong_doge_weak_doge():
+    meme = Image.open(MEME_PATH+'strong_doge_weak_doge.jpg')
+    img1 = Image.open(PFP_PATH+'file_0.jpg').resize((46,44))
+    img2 = Image.open(PFP_PATH+'file_1.jpg').resize((48,41))
+
+    meme.paste(img2,(295,172))
+    meme.paste(img1,(110,79))
+
+    #draw = ImageDraw.Draw(meme)
+    #draw.text((210,0),text=QUOTENAME,fill=(3, 132, 252),font=fnt)
+    #draw.text((210,200),text=USERNAME,fill=(3, 132, 252),font=fnt)
+
+    meme.save('output.jpg')
+    os.remove(PFP_PATH+'file_0.jpg')
+    os.remove(PFP_PATH+'file_1.jpg')
+
+def angry_pakistan_fan():
+    meme = Image.open(MEME_PATH+'angry_pakistan_fan.jpg')
+    img1 = Image.open(PFP_PATH+'file_0.jpg').resize((68,85))
+    #img2 = Image.open(PFP_PATH+'file_1.jpg').resize((48,41))
+
+    #meme.paste(img2,(295,172))
+    meme.paste(img1,(170,16))
+
+    #draw = ImageDraw.Draw(meme)
+    #draw.text((210,0),text=QUOTENAME,fill=(3, 132, 252),font=fnt)
+    #draw.text((210,200),text=USERNAME,fill=(3, 132, 252),font=fnt)
+
+    meme.save('output.jpg')
+    os.remove(PFP_PATH+'file_0.jpg')
+    os.remove(PFP_PATH+'file_1.jpg')
+
+def facts_book():
+    meme = Image.open(MEME_PATH+'facts_book.jpg')
+    img1 = Image.open(PFP_PATH+'file_0.jpg').resize((49,48))
+    img2 = Image.open(PFP_PATH+'file_1.jpg').resize((49,48))
+    meme.paste(img2,(17,391))
+    meme.paste(img1,(34,319))
 
     #draw = ImageDraw.Draw(meme)
     #draw.text((210,0),text=QUOTENAME,fill=(3, 132, 252),font=fnt)
