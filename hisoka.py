@@ -1,6 +1,7 @@
 from telegram import Update, ParseMode
 import shutil
 import os
+import random
 from imgProcess import *
 from telegram.ext import Updater, CommandHandler, Dispatcher, CallbackContext
 
@@ -76,7 +77,22 @@ def fact(update:Update,context:CallbackContext)->None:
 def commands(update:Update,context:CallbackContext)->None:
     update.message.reply_text("<pre>/slap</pre>\n<pre>/drake</pre>\n<pre>/cat</pre>\n<pre>/forme</pre>\n<pre>/butterfly</pre>\n<pre>/fact</pre>\n<pre>/weak</pre>\n<pre>/strong</pre>\n<pre>/bruh</pre>\n<pre>/commands</pre>",parse_mode = 'HTML')
 
-
+def insult(update : Update, context : CallbackContext) -> None:
+    try:
+        if update.message.from_user.username == 'hisokaDankBot':
+            update.message.reply_text("Did you know?\nBungee Gum possesses the properties of both rubber and gum.")
+        else:
+            username_quote = '@'+update.message.reply_to_message.from_user.username
+            username_user = '@'+update.message.from_user.username
+            with open('insult.txt') as f:
+                insult = random.choice(f.readlines())
+                if "##name##" in insult:
+                    insult = insult.replace("##name##",username_quote)
+                    update.message.reply_text(insult,quote = False)
+                else:
+                    update.message.reply_text(f'{username_quote} {insult}',quote = False)
+    except AttributeError :
+        update.message.reply_text('Reply to a User, Idiot!')
 
 if __name__ == "__main__":
     
@@ -94,6 +110,7 @@ if __name__ == "__main__":
     dp.add_handler(CommandHandler("strong",strong,run_async = True))
     dp.add_handler(CommandHandler("bruh",bruh,run_async = True))
     dp.add_handler(CommandHandler("availCommands",commands,run_async = True))
+    dp.add_handler(CommandHandler('hinsult',insult,run_async= True))
 
     updater.start_polling()
     updater.idle()
