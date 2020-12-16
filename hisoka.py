@@ -79,8 +79,8 @@ def commands(update:Update,context:CallbackContext)->None:
 
 def insult(update : Update, context : CallbackContext) -> None:
     try:
-        if update.message.from_user.username == 'hisokaDankBot':
-            update.message.reply_text("Did you know?\nBungee Gum possesses the properties of both rubber and gum.")
+        if update.message.reply_to_message.from_user.username == 'hisokaDankBot':
+            update.message.reply_text("Did you know?\nBungee Gum possesses the properties of both rubber and gum.\nDon't try anything funny with me bro.")
         else:
             username_quote = '@'+update.message.reply_to_message.from_user.username
             username_user = '@'+update.message.from_user.username
