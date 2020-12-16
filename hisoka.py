@@ -78,8 +78,9 @@ def commands(update:Update,context:CallbackContext)->None:
     update.message.reply_text("<pre>/slap</pre>\n<pre>/drake</pre>\n<pre>/cat</pre>\n<pre>/forme</pre>\n<pre>/butterfly</pre>\n<pre>/fact</pre>\n<pre>/weak</pre>\n<pre>/strong</pre>\n<pre>/bruh</pre>\n<pre>/commands</pre>",parse_mode = 'HTML')
 
 def insult(update : Update, context : CallbackContext) -> None:
+    print(update.message.from_user.username)
     try:
-        if update.message.reply_to_message.from_user.username == 'hisokaDankBot':
+        if update.message.reply_to_message.from_user.username == 'testbotyeyebot':
             update.message.reply_text("Did you know?\nBungee Gum possesses the properties of both rubber and gum.\nDon't try anything funny with me bro.")
         else:
             username_quote = '@'+update.message.reply_to_message.from_user.username
@@ -90,7 +91,9 @@ def insult(update : Update, context : CallbackContext) -> None:
                     insult = insult.replace("##name##",username_quote)
                     update.message.reply_text(insult,quote = False)
                 else:
-                    update.message.reply_text(f'{username_quote} {insult}',quote = False)
+                    update.message.reply_text(f'{username_user} {insult}\n\nYou just got played yourself.\n'
+                                                'Remember Bungee Gum?\nJust like that, this possesses both\n'
+                                                'the properties of insulting and getting insulted.\nHave a Nice Day :)',quote = False)
     except AttributeError :
         update.message.reply_text('Reply to a User, Idiot!')
 
