@@ -83,8 +83,14 @@ def insult(update : Update, context : CallbackContext) -> None:
         if update.message.reply_to_message.from_user.username == 'hisokaDankBot':
             update.message.reply_text("Did you know?\nBungee Gum possesses the properties of both rubber and gum.\nDon't try anything funny with me bro.")
         else:
-            username_quote = '@'+update.message.reply_to_message.from_user.username
-            username_user = '@'+update.message.from_user.username
+            try:
+                username_quote = '@'+update.message.reply_to_message.from_user.username
+            except TypeError:
+                username_quote = update.message.reply_to_message.from_user.first_name
+            try:
+                username_user = '@'+update.message.from_user.username 
+            except TypeError:
+                username_user = update.message.from_user.first_name
             with open('insult.txt') as f:
                 insult = random.choice(f.readlines())
                 if "##name##" in insult:
