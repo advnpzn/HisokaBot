@@ -1,12 +1,18 @@
 from PIL import Image, ImageDraw, ImageFont
-import os
+import os, requests, json
 
 MEME_PATH = 'templates/'
 FONT_PATH = 'fonts/'
 PFP_PATH = 'pfp/'
+R_MEME_URL = os.environ.get("meme_api","")
 
 fnt = ImageFont.truetype(FONT_PATH+'Menlo-Regular.ttf',size= 20)
 
+def meme_generate():
+    r = requests.get(R_MEME_URL).json()['url']
+    with open('m_img.png','wb') as f:
+        f.write(requests.get(r).content)
+    f.close()
 
 def drake_meme():
     meme = Image.open(MEME_PATH+'drake.jpg')
