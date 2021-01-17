@@ -5,6 +5,10 @@ import random
 from imgProcess import *
 from telegram.ext import Updater, CommandHandler, Dispatcher, CallbackContext
 
+def meme(update:Update,context:CallbackContext)->None:
+    meme_generate()
+    update.message.reply_photo(open('m_img.png','rb'),quote=False)
+
 def get(update,context):
     try:
         pfp = update.message.reply_to_message.from_user.get_profile_photos().photos[0][0].get_file().download()
@@ -75,7 +79,7 @@ def fact(update:Update,context:CallbackContext)->None:
     os.remove('output.jpg')
 
 def commands(update:Update,context:CallbackContext)->None:
-    update.message.reply_text("<pre>/slap</pre>\n<pre>/drake</pre>\n<pre>/cat</pre>\n<pre>/forme</pre>\n<pre>/butterfly</pre>\n<pre>/fact</pre>\n<pre>/weak</pre>\n<pre>/strong</pre>\n<pre>/bruh</pre>\n<pre>/commands</pre>",parse_mode = 'HTML')
+    update.message.reply_text("<pre>/meme</pre>\n<pre>/slap</pre>\n<pre>/drake</pre>\n<pre>/cat</pre>\n<pre>/forme</pre>\n<pre>/butterfly</pre>\n<pre>/fact</pre>\n<pre>/weak</pre>\n<pre>/strong</pre>\n<pre>/bruh</pre>\n<pre>/commands</pre>",parse_mode = 'HTML')
 
 def insult(update : Update, context : CallbackContext) -> None:
     print(update.message.from_user.username)
@@ -113,6 +117,7 @@ if __name__ == "__main__":
     dp.add_handler(CommandHandler("shit",shit,run_async = True))
     dp.add_handler(CommandHandler("cat",cat,run_async = True))
     dp.add_handler(CommandHandler("forme",forme,run_async = True))
+    dp.add_handler(CommandHandler("meme",meme,run_async = True))
     dp.add_handler(CommandHandler("butterfly",butterfly,run_async = True))
     dp.add_handler(CommandHandler("fact",fact,run_async = True))
     dp.add_handler(CommandHandler("weak",weak,run_async = True))
