@@ -6,8 +6,8 @@ from imgProcess import *
 from telegram.ext import Updater, CommandHandler, Dispatcher, CallbackContext
 
 def meme(update:Update,context:CallbackContext)->None:
-    meme_generate()
-    update.message.reply_photo(open('m_img.png','rb'),quote=False)
+    a = meme_generate()
+    update.message.reply_photo(open('m_img.png','rb'),caption=a,quote=False)
 
 def get(update,context):
     try:
