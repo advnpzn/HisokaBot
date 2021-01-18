@@ -9,10 +9,10 @@ R_MEME_URL = os.environ.get("meme_api","")
 fnt = ImageFont.truetype(FONT_PATH+'Menlo-Regular.ttf',size= 20)
 
 def meme_generate():
-    r = requests.get(R_MEME_URL).json()['url']
+    r = requests.get(R_MEME_URL).json()
     with open('m_img.png','wb') as f:
-        f.write(requests.get(r).content)
-    f.close()
+        f.write(requests.get(r['url']).content)
+    return r['title']
 
 def drake_meme():
     meme = Image.open(MEME_PATH+'drake.jpg')
