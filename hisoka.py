@@ -4,7 +4,7 @@ import os
 import random
 import logging
 from imgProcess import *
-from telegram.ext import Updater, CommandHandler, CallbackContext
+from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQueryHandler, Filters
 from telegram.utils import helpers
 
 # Logging
@@ -13,6 +13,10 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
+
+# CALL_BACK_DATA
+KEYBOARD_HELP_CALLBACK_DATA = 'K-H-CB'
+HELP = 'help'
 
 
 def meme(update: Update, context: CallbackContext) -> None:
@@ -110,24 +114,24 @@ def aa(update: Update, context: CallbackContext) -> None:
 
 
 def help(update: Update, context: CallbackContext) -> None:
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton(
-            "Help", callback_data="https://t.me/hisokaDankBot?start=help")]
-    ])
-    if update.effective_chat.GROUP:
+    if update.effective_chat['type'] == 'group' or update.effective_chat['type'] == 'supergroup':
         update.message.reply_text(
-            "<pre>Click the Help Button.</pre>", parse_mode=ParseMode.HTML, reply_markup=keyboard)
+            "<pre>Click the Help Button.</pre>", parse_mode=ParseMode.HTML, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('Help', callback_data=KEYBOARD_HELP_CALLBACK_DATA)]]))
     else:
-        msg = ("<pre>/meme</pre> - Shows a random meme from Reddit\n"
-               "<pre>/drake</pre> - Shows modified drake meme with user & target's Picture\n"
-               "<pre>/slap</pre> - Shows modified Batman Slap meme with user & target's Picture\n"
-               "<pre>/help</pre> - Shows available Commands.\n"
-               "<pre>/hinsult</pre> - Insults the target, NOTE: Has a 50% \chance of insulting yourself!\n"
-               "<pre>/weak</pre> - Shows modified Doge meme with user's Picture\n"
-               "<pre>/strong</pre> - Shows modified Strong & Weak Doge meme with user & target's Picture\n"
-               "<pre>/bruh</pre> - Shows modified Pakistani Fan meme with user's Picture\n"
-               "<pre>/aa (text)</pre> - Shows modified Ancient aliens guy meme with user given text. e.g <pre>/aa indians</pre>")
-        update.message.reply_text(msg, parse_mode=ParseMode.HTML)
+        help_func(update, context)
+
+
+def help_func(update: Update, context: CallbackContext) -> None:
+    msg = ("<pre>/meme</pre> - Shows a random meme from Reddit\n"
+           "<pre>/drake</pre> - Shows modified drake meme with user & target's Picture\n"
+           "<pre>/slap</pre> - Shows modified Batman Slap meme with user & target's Picture\n"
+           "<pre>/help</pre> - Shows available Commands.\n"
+           "<pre>/hinsult</pre> - Insults the target, NOTE: Has a 50% \chance of insulting yourself!\n"
+           "<pre>/weak</pre> - Shows modified Doge meme with user's Picture\n"
+           "<pre>/strong</pre> - Shows modified Strong & Weak Doge meme with user & target's Picture\n"
+           "<pre>/bruh</pre> - Shows modified Pakistani Fan meme with user's Picture\n"
+           "<pre>/aa (text)</pre> - Shows modified Ancient aliens guy meme with user given text. e.g <pre>/aa indians</pre>")
+    update.message.reply_text(msg, parse_mode=ParseMode.HTML)
 
 
 def insult(update: Update, context: CallbackContext) -> None:
@@ -158,12 +162,27 @@ def insult(update: Update, context: CallbackContext) -> None:
         update.message.reply_text('Reply to a User, Idiot!')
 
 
+def help_callback(update: Update, context: CallbackContext) -> None:
+    url = helpers.create_deep_linked_url(context.bot.username, payload=HELP)
+    update.callback_query.answer(url=url)
+
+
+def start(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text("<pre>Hey, I'm Hisoka.\n"
+                              "Did you know?\n"
+                              "Bungee Gum possesses the properties of both rubber and gum.</pre>", quote=False, parse_mode=ParseMode.HTML)
+
+
 if __name__ == "__main__":
 
     bot_token = os.environ.get("BOT_TOKEN", "")
     updater = Updater(bot_token, use_context=True)
     dp = updater.dispatcher
+    dp.add_handler(CallbackQueryHandler(
+        help_callback, pattern=KEYBOARD_HELP_CALLBACK_DATA))
     dp.add_handler(CommandHandler("drake", drake, run_async=True))
+    dp.add_handler(CommandHandler('start', help_func,
+                                  Filters.regex(HELP), run_async=True))
     dp.add_handler(CommandHandler("slap", slap, run_async=True))
     dp.add_handler(CommandHandler("shit", shit, run_async=True))
     dp.add_handler(CommandHandler("cat", cat, run_async=True))
@@ -177,5 +196,6 @@ if __name__ == "__main__":
     dp.add_handler(CommandHandler("help", help, run_async=True))
     dp.add_handler(CommandHandler('hinsult', insult, run_async=True))
     dp.add_handler(CommandHandler('aa', aa, run_async=True))
+    dp.add_handler(CommandHandler('start', start, run_async=True))
     updater.start_polling()
     updater.idle()
