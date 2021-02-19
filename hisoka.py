@@ -168,9 +168,15 @@ def help_callback(update: Update, context: CallbackContext) -> None:
 
 
 def start(update: Update, context: CallbackContext) -> None:
+    keyboard = InlineKeyboardMarkup(
+        [
+            [InlineKeyboardButton('Source Code', url='https://github.com/adenosinetp10/HisokaBot'), InlineKeyboardButton(
+                'Developer', url='https://t.me/ATPnull'), InlineKeyboardButton('Help', callback_data=KEYBOARD_HELP_CALLBACK_DATA)]
+        ]
+    )
     update.message.reply_text("<pre>Hey, I'm Hisoka.\n"
                               "Did you know?\n"
-                              "Bungee Gum possesses the properties of both rubber and gum.</pre>", quote=False, parse_mode=ParseMode.HTML)
+                              "Bungee Gum possesses the properties of both rubber and gum.</pre>", quote=False, parse_mode=ParseMode.HTML, reply_markup=keyboard)
 
 
 if __name__ == "__main__":
