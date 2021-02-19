@@ -1,12 +1,13 @@
 from telegram import Update, ParseMode, InlineKeyboardButton, InlineKeyboardMarkup
 import shutil
-import os
 import random
 import logging
+import os
+from config import BOT_TOKEN
 from imgProcess import *
 from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQueryHandler, Filters
 from telegram.utils import helpers
-import time
+
 
 # Logging
 logging.basicConfig(
@@ -195,8 +196,7 @@ def start(update: Update, context: CallbackContext) -> None:
 
 if __name__ == "__main__":
 
-    bot_token = os.environ.get("BOT_TOKEN", "")
-    updater = Updater(bot_token, use_context=True)
+    updater = Updater(BOT_TOKEN, use_context=True)
     dp = updater.dispatcher
     job = updater.job_queue
     dp.add_handler(CallbackQueryHandler(

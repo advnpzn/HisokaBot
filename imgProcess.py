@@ -2,17 +2,18 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 import requests
 import json
+from config import MEME_API_URL
 
 MEME_PATH = 'templates/'
 FONT_PATH = 'fonts/'
 PFP_PATH = 'pfp/'
-R_MEME_URL = os.environ.get("meme_api", "")
+
 
 fnt = ImageFont.truetype(FONT_PATH+'Menlo-Regular.ttf', size=20)
 
 
 def meme_generate():
-    r = requests.get(R_MEME_URL).json()
+    r = requests.get(MEME_API_URL).json()
     with open('m_img.png', 'wb') as f:
         f.write(requests.get(r['url']).content)
     return r['title']
