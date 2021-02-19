@@ -96,8 +96,8 @@ def fact(update: Update, context: CallbackContext) -> None:
 def aa(update: Update, context: CallbackContext) -> None:
     cxt = " ".join(context.args)
     htv_aliens_guy(cxt)
-    update.message.reply_photo(open('output.jpg', 'rb'), quote=False)
-    os.remove('output.jpg')
+    update.message.reply_photo(open('output.png', 'rb'), quote=False)
+    os.remove('output.png')
 
 
 def commands(update: Update, context: CallbackContext) -> None:
