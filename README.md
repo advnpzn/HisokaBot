@@ -12,4 +12,4 @@ Just a Telegram bot to mess with people lel
 >`/weak` - Shows modified Doge meme with user's Picture\
 >`/strong` - Shows modified Strong & Weak Doge meme with user & target's  Picture\
 >`/bruh` - Shows modified Pakistani Fan meme with user's  Picture\
->`/aa` - Shows modified Ancient aliens guy meme with user given text. e.g /aa indians
+>`/aa` - Shows modified Ancient aliens guy meme with user given text. e.g `/aa indians`
