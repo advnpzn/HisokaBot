@@ -6,6 +6,7 @@ import logging
 from imgProcess import *
 from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQueryHandler, Filters
 from telegram.utils import helpers
+import time
 
 # Logging
 logging.basicConfig(
@@ -115,8 +116,11 @@ def aa(update: Update, context: CallbackContext) -> None:
 
 def help(update: Update, context: CallbackContext) -> None:
     if update.effective_chat['type'] == 'group' or update.effective_chat['type'] == 'supergroup':
-        update.message.reply_text(
+        msg = update.message.reply_text(
             "<pre>Click the Help Button.</pre>", parse_mode=ParseMode.HTML, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('Help', callback_data=KEYBOARD_HELP_CALLBACK_DATA)]]))
+        context.job_queue.run_once(callback=delete_msg, when=5, context=[
+                                   update.effective_chat.id, msg.message_id], name='del_help')
+        update.message.delete()
     else:
         help_func(update, context)
 
@@ -167,6 +171,13 @@ def help_callback(update: Update, context: CallbackContext) -> None:
     update.callback_query.answer(url=url)
 
 
+def delete_msg(context):
+
+    job = context.job
+    context.bot.delete_message(
+        chat_id=job.context[0], message_id=job.context[1])
+
+
 def start(update: Update, context: CallbackContext) -> None:
     keyboard = InlineKeyboardMarkup(
         [
@@ -174,9 +185,12 @@ def start(update: Update, context: CallbackContext) -> None:
                 'Developer', url='https://t.me/ATPnull'), InlineKeyboardButton('Help', callback_data=KEYBOARD_HELP_CALLBACK_DATA)]
         ]
     )
-    update.message.reply_text("<pre>Hey, I'm Hisoka.\n"
-                              "Did you know?\n"
-                              "Bungee Gum possesses the properties of both rubber and gum.</pre>", quote=False, parse_mode=ParseMode.HTML, reply_markup=keyboard)
+    msg = update.message.reply_text("<pre>Hey, I'm Hisoka.\n"
+                                    "Did you know?\n"
+                                    "Bungee Gum possesses the properties of both rubber and gum.\nWill be deleted in 5 secs to avoid flooding.</pre>", quote=False, parse_mode=ParseMode.HTML, reply_markup=keyboard)
+    context.job_queue.run_once(callback=delete_msg, when=5, context=[
+                               update.effective_chat.id, msg.message_id], name='del')
+    update.message.delete()
 
 
 if __name__ == "__main__":
@@ -184,6 +198,7 @@ if __name__ == "__main__":
     bot_token = os.environ.get("BOT_TOKEN", "")
     updater = Updater(bot_token, use_context=True)
     dp = updater.dispatcher
+    job = updater.job_queue
     dp.add_handler(CallbackQueryHandler(
         help_callback, pattern=KEYBOARD_HELP_CALLBACK_DATA))
     dp.add_handler(CommandHandler("drake", drake, run_async=True))
