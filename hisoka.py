@@ -1,9 +1,18 @@
-from telegram import Update, ParseMode
+from telegram import Update, ParseMode, InlineKeyboardButton, InlineKeyboardMarkup
 import shutil
 import os
 import random
+import logging
 from imgProcess import *
-from telegram.ext import Updater, CommandHandler, Dispatcher, CallbackContext
+from telegram.ext import Updater, CommandHandler, CallbackContext
+from telegram.utils import helpers
+
+# Logging
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+)
+
+logger = logging.getLogger(__name__)
 
 
 def meme(update: Update, context: CallbackContext) -> None:
@@ -100,9 +109,25 @@ def aa(update: Update, context: CallbackContext) -> None:
     os.remove('output.png')
 
 
-def commands(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text(
-        "<pre>/meme</pre>\n<pre>/slap</pre>\n<pre>/drake</pre>\n<pre>/cat</pre>\n<pre>/forme</pre>\n<pre>/butterfly</pre>\n<pre>/fact</pre>\n<pre>/weak</pre>\n<pre>/strong</pre>\n<pre>/bruh</pre>\n<pre>/availcommands</pre>\n<pre>/aa {your query} e.g /aa indians</pre>", parse_mode='HTML')
+def help(update: Update, context: CallbackContext) -> None:
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton(
+            "Help", callback_data="https://t.me/hisokaDankBot?start=help")]
+    ])
+    if update.effective_chat.GROUP:
+        update.message.reply_text(
+            "<pre>Click the Help Button.</pre>", parse_mode=ParseMode.HTML, reply_markup=keyboard)
+    else:
+        msg = ("<pre>/meme</pre> - Shows a random meme from Reddit\n"
+               "<pre>/drake</pre> - Shows modified drake meme with user & target's Picture\n"
+               "<pre>/slap</pre> - Shows modified Batman Slap meme with user & target's Picture\n"
+               "<pre>/help</pre> - Shows available Commands.\n"
+               "<pre>/hinsult</pre> - Insults the target, NOTE: Has a 50% \chance of insulting yourself!\n"
+               "<pre>/weak</pre> - Shows modified Doge meme with user's Picture\n"
+               "<pre>/strong</pre> - Shows modified Strong & Weak Doge meme with user & target's Picture\n"
+               "<pre>/bruh</pre> - Shows modified Pakistani Fan meme with user's Picture\n"
+               "<pre>/aa (text)</pre> - Shows modified Ancient aliens guy meme with user given text. e.g <pre>/aa indians</pre>")
+        update.message.reply_text(msg, parse_mode=ParseMode.HTML)
 
 
 def insult(update: Update, context: CallbackContext) -> None:
@@ -149,7 +174,7 @@ if __name__ == "__main__":
     dp.add_handler(CommandHandler("weak", weak, run_async=True))
     dp.add_handler(CommandHandler("strong", strong, run_async=True))
     dp.add_handler(CommandHandler("bruh", bruh, run_async=True))
-    dp.add_handler(CommandHandler("availCommands", commands, run_async=True))
+    dp.add_handler(CommandHandler("help", help, run_async=True))
     dp.add_handler(CommandHandler('hinsult', insult, run_async=True))
     dp.add_handler(CommandHandler('aa', aa, run_async=True))
     updater.start_polling()
