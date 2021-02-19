@@ -5,14 +5,11 @@ Just a Telegram bot to mess with people lel
 
 # Commands
 >`/meme`
->`/meme`
->`/slap`
 >`/drake`
->`/cat`
->`/forme`
->`/butterfly`
->`/fact`
+>`/slap`
+>`/availcommands`
+>`/hinsult`
 >`/weak`
 >`/strong`
 >`/bruh`
->`/availcommands`
+>`/meme`
