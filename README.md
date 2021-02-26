@@ -7,7 +7,7 @@ Just a Telegram bot to mess with people lel
 >`/meme` - Shows a random meme from Reddit\
 >`/drake` - Shows modified drake meme with user & target's  Picture\
 >`/slap` - Shows modified Batman Slap meme with user & target's  Picture\
->`/availcommands` - Shows available Commands.\
+>`/help` - Shows available Commands.\
 >`/hinsult` - Insults the target, NOTE: Has a 50% chance of insulting yourself!\
 >`/weak` - Shows modified Doge meme with user's Picture\
 >`/strong` - Shows modified Strong & Weak Doge meme with user & target's  Picture\
