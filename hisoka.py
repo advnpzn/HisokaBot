@@ -1,4 +1,4 @@
-from telegram import Update, ParseMode, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import Update, ParseMode, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
 import shutil
 import random
 import logging
@@ -7,7 +7,7 @@ from config import BOT_TOKEN
 from imgProcess import *
 from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQueryHandler, Filters
 from telegram.utils import helpers
-
+from strings import help_for_specific_commands
 
 # Logging
 logging.basicConfig(
@@ -15,10 +15,6 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
-
-# CALL_BACK_DATA
-KEYBOARD_HELP_CALLBACK_DATA = 'K-H-CB'
-HELP = 'help'
 
 
 def meme(update: Update, context: CallbackContext) -> None:
@@ -115,30 +111,6 @@ def aa(update: Update, context: CallbackContext) -> None:
     os.remove('output.png')
 
 
-def help(update: Update, context: CallbackContext) -> None:
-    if update.effective_chat['type'] == 'group' or update.effective_chat['type'] == 'supergroup':
-        msg = update.message.reply_text(
-            "<pre>Click the Help Button.</pre>", parse_mode=ParseMode.HTML, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('Help', callback_data=KEYBOARD_HELP_CALLBACK_DATA)]]))
-        context.job_queue.run_once(callback=delete_msg, when=5, context=[
-                                   update.effective_chat.id, msg.message_id], name='del_help')
-        update.message.delete()
-    else:
-        help_func(update, context)
-
-
-def help_func(update: Update, context: CallbackContext) -> None:
-    msg = ("<pre>/meme</pre> - Shows a random meme from Reddit\n"
-           "<pre>/drake</pre> - Shows modified drake meme with user & target's Picture\n"
-           "<pre>/slap</pre> - Shows modified Batman Slap meme with user & target's Picture\n"
-           "<pre>/help</pre> - Shows available Commands.\n"
-           "<pre>/hinsult</pre> - Insults the target, NOTE: Has a 50% \chance of insulting yourself!\n"
-           "<pre>/weak</pre> - Shows modified Doge meme with user's Picture\n"
-           "<pre>/strong</pre> - Shows modified Strong & Weak Doge meme with user & target's Picture\n"
-           "<pre>/bruh</pre> - Shows modified Pakistani Fan meme with user's Picture\n"
-           "<pre>/aa (text)</pre> - Shows modified Ancient aliens guy meme with user given text. e.g <pre>/aa indians</pre>")
-    update.message.reply_text(msg, parse_mode=ParseMode.HTML)
-
-
 def insult(update: Update, context: CallbackContext) -> None:
     print(update.message.from_user.username)
     try:
@@ -167,43 +139,116 @@ def insult(update: Update, context: CallbackContext) -> None:
         update.message.reply_text('Reply to a User, Idiot!')
 
 
-def help_callback(update: Update, context: CallbackContext) -> None:
-    url = helpers.create_deep_linked_url(context.bot.username, payload=HELP)
-    update.callback_query.answer(url=url)
+class Start:
+    def __init__(self, name):
+
+        self.start_buttons = InlineKeyboardMarkup(
+            [
+                [InlineKeyboardButton('GitHub', url='https://github.com/adenosinetp10'), InlineKeyboardButton(
+                    'Developer', url='https://t.me/ATPnull'), InlineKeyboardButton('Help', callback_data='help')]
+            ]
+        )
+        self.st_photo = help_for_specific_commands['start']['pic']
+        self.st_text = help_for_specific_commands['start']['text'].format(name)
 
 
-def delete_msg(context):
+def start(update: Update, context: CallbackContext):
+    st = Start(update.effective_user.first_name)
+    update.message.reply_photo(
+        photo=st.st_photo, caption=st.st_text, reply_markup=st.start_buttons)
 
-    job = context.job
-    context.bot.delete_message(
-        chat_id=job.context[0], message_id=job.context[1])
 
-
-def start(update: Update, context: CallbackContext) -> None:
-    keyboard = InlineKeyboardMarkup(
+def help_with_buttons(update: Update, context: CallbackContext):
+    help_funcs_buttons = InlineKeyboardMarkup(
         [
-            [InlineKeyboardButton('Source Code', url='https://github.com/adenosinetp10/HisokaBot'), InlineKeyboardButton(
-                'Developer', url='https://t.me/ATPnull'), InlineKeyboardButton('Help', callback_data=KEYBOARD_HELP_CALLBACK_DATA)]
+            [InlineKeyboardButton('Meme', callback_data='h_meme'), InlineKeyboardButton(
+                'Bruh', callback_data='h_bruh'), InlineKeyboardButton('Slap', callback_data='h_slap'), InlineKeyboardButton('Drake', callback_data='h_drake')],
+            [InlineKeyboardButton('HTV guy', callback_data='h_aa'), InlineKeyboardButton(
+                'Strong', callback_data='h_strong'), InlineKeyboardButton('Hinsult', callback_data='h_hinsult'), ],
+            [InlineKeyboardButton('Cat', callback_data='h_cat'), InlineKeyboardButton(
+                'Is For Me', callback_data='h_forme'), InlineKeyboardButton('Shit', callback_data='h_shit'), ],
+            [InlineKeyboardButton('Butterfly', callback_data='h_butterfly'), InlineKeyboardButton(
+                'Weak', callback_data='h_weak'), InlineKeyboardButton('Fact', callback_data='h_fact'), ],
+            [InlineKeyboardButton('🔙', callback_data='back_to_start')]
         ]
     )
-    msg = update.message.reply_text("<pre>Hey, I'm Hisoka.\n"
-                                    "Did you know?\n"
-                                    "Bungee Gum possesses the properties of both rubber and gum.\nWill be deleted in 5 secs to avoid flooding.</pre>", quote=False, parse_mode=ParseMode.HTML, reply_markup=keyboard)
-    context.job_queue.run_once(callback=delete_msg, when=5, context=[
-                               update.effective_chat.id, msg.message_id], name='del')
-    update.message.delete()
+
+    query = update.callback_query
+    query.answer()
+    query.message.edit_media(InputMediaPhoto(
+        help_for_specific_commands['start']['pic'], "Click the Buttons to see the instrutions to use the Commands."), reply_markup=help_funcs_buttons)
+
+
+def help_fucns(update: Update, context: CallbackContext):
+    query = update.callback_query
+    query.answer()
+    back_button = InlineKeyboardMarkup(
+        [[InlineKeyboardButton('🔙', callback_data='back_to_help')]])
+    match = query.data.split('_')[1]
+    if match == 'meme':
+        query.message.edit_media(InputMediaPhoto(
+            help_for_specific_commands['meme']['pic'], help_for_specific_commands['meme']['text']), reply_markup=back_button)
+    elif match == 'slap':
+        query.message.edit_media(InputMediaPhoto(
+            help_for_specific_commands['slap']['pic'], help_for_specific_commands['slap']['text']), reply_markup=back_button)
+    elif match == 'shit':
+        query.message.edit_media(InputMediaPhoto(
+            help_for_specific_commands['shit']['pic'], help_for_specific_commands['shit']['text']), reply_markup=back_button)
+    elif match == 'forme':
+        query.message.edit_media(InputMediaPhoto(
+            help_for_specific_commands['forme']['pic'], help_for_specific_commands['forme']['text']), reply_markup=back_button)
+    elif match == 'butterfly':
+        query.message.edit_media(InputMediaPhoto(
+            help_for_specific_commands['butterfly']['pic'], help_for_specific_commands['butterfly']['text']), reply_markup=back_button)
+    elif match == 'cat':
+        query.message.edit_media(InputMediaPhoto(
+            help_for_specific_commands['cat']['pic'], help_for_specific_commands['cat']['text']), reply_markup=back_button)
+    elif match == 'fact':
+        query.message.edit_media(InputMediaPhoto(
+            help_for_specific_commands['fact']['pic'], help_for_specific_commands['fact']['text']), reply_markup=back_button)
+    elif match == 'weak':
+        query.message.edit_media(InputMediaPhoto(
+            help_for_specific_commands['weak']['pic'], help_for_specific_commands['weak']['text']), reply_markup=back_button)
+    elif match == 'strong':
+        query.message.edit_media(InputMediaPhoto(
+            help_for_specific_commands['strong']['pic'], help_for_specific_commands['strong']['text']), reply_markup=back_button)
+    elif match == 'bruh':
+        query.message.edit_media(InputMediaPhoto(
+            help_for_specific_commands['bruh']['pic'], help_for_specific_commands['bruh']['text']), reply_markup=back_button)
+    elif match == 'hinsult':
+        query.message.edit_media(InputMediaPhoto(
+            help_for_specific_commands['hinsult']['pic'], help_for_specific_commands['hinsult']['text']), reply_markup=back_button)
+    elif match == 'aa':
+        query.message.edit_media(InputMediaPhoto(
+            help_for_specific_commands['aa']['pic'], help_for_specific_commands['aa']['text']), reply_markup=back_button)
+    elif match == 'drake':
+        query.message.edit_media(InputMediaPhoto(
+            help_for_specific_commands['drake']['pic'], help_for_specific_commands['drake']['text']), reply_markup=back_button)
+
+
+def back_button_handling(update: Update, context: CallbackContext):
+    query = update.callback_query
+    query.answer()
+    match = query.data.split('_')
+    if match[2] == 'help':
+        help_with_buttons(update, context)
+    else:
+        st = Start(update.effective_user.first_name)
+        query.message.edit_caption(
+            caption=st.st_text, reply_markup=st.start_buttons)
 
 
 if __name__ == "__main__":
 
     updater = Updater(BOT_TOKEN, use_context=True)
     dp = updater.dispatcher
-    job = updater.job_queue
+    dp.add_handler(CallbackQueryHandler(help_fucns, pattern=r'h_'))
+    dp.add_handler(CallbackQueryHandler(help_with_buttons, pattern='help'))
     dp.add_handler(CallbackQueryHandler(
-        help_callback, pattern=KEYBOARD_HELP_CALLBACK_DATA))
+        back_button_handling, pattern=r'back_to'))
+    dp.add_handler(CommandHandler(
+        'start', start, filters=Filters.chat_type.private, run_async=True))
     dp.add_handler(CommandHandler("drake", drake, run_async=True))
-    dp.add_handler(CommandHandler('start', help_func,
-                                  Filters.regex(HELP), run_async=True))
     dp.add_handler(CommandHandler("slap", slap, run_async=True))
     dp.add_handler(CommandHandler("shit", shit, run_async=True))
     dp.add_handler(CommandHandler("cat", cat, run_async=True))
@@ -214,9 +259,7 @@ if __name__ == "__main__":
     dp.add_handler(CommandHandler("weak", weak, run_async=True))
     dp.add_handler(CommandHandler("strong", strong, run_async=True))
     dp.add_handler(CommandHandler("bruh", bruh, run_async=True))
-    dp.add_handler(CommandHandler("help", help, run_async=True))
     dp.add_handler(CommandHandler('hinsult', insult, run_async=True))
     dp.add_handler(CommandHandler('aa', aa, run_async=True))
-    dp.add_handler(CommandHandler('start', start, run_async=True))
     updater.start_polling()
     updater.idle()
