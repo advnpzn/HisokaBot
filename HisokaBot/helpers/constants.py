@@ -1,10 +1,10 @@
 import os
 
 
-MEME_API_URI = 'https://meme-api.herokuapp.com/gimme'
-BOT_TOKEN = '1228450448:AAH7QiakktkAx5cmNkh06KjOyaMO3rEbjJM'
-ANILIST_GRAPHQL_URI = 'https://graphql.anilist.co'
-DATABASE_URL = os.environ.get("DATABASE_URL", "")
+MEME_API_URI = os.environ.get('meme_api_uri')
+BOT_TOKEN = os.environ.get('bot_token')
+ANILIST_GRAPHQL_URI = os.environ.get('anilist_uri')
+DATABASE_URI = os.environ.get("database_uri")
 
 
 searchAnime = '''
