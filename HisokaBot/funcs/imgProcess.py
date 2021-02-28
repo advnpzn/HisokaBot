@@ -2,9 +2,9 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 from pathlib import Path
 
-MEME_PATH = 'funcs/templates/'
-PFP_PATH = 'funcs/pfp/'
-FONT_PATH = 'funcs/fonts/'
+MEME_PATH = 'HisokaBot/funcs/templates/'
+PFP_PATH = 'HisokaBot/funcs/pfp/'
+FONT_PATH = 'HisokaBot/funcs/fonts/'
 
 
 fnt = ImageFont.truetype(FONT_PATH+'Menlo-Regular.ttf', size=20)
