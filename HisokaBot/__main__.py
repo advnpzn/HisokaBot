@@ -7,7 +7,7 @@ from HisokaBot.funcs.meme import meme
 from HisokaBot.funcs.anime import anime
 from HisokaBot.funcs.imgProcess import *
 from telegram.ext import CommandHandler, CallbackContext, Filters, ConversationHandler, MessageHandler
-from HisokaBot.helpers.callbackquery_handlers import ToStart
+from HisokaBot.handlers.callbackquery_handlers import ToStart
 
 
 def meme_generate(update: Update, context: CallbackContext) -> None:
