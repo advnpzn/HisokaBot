@@ -166,9 +166,16 @@ def cancel(update: Update, context: CallbackContext):
 
 
 def start(update: Update, context: CallbackContext):
-    st = ToStart(update.effective_user.first_name)
-    update.message.reply_photo(
-        photo=st.to_start_photo, caption=st.to_start_text, reply_markup=st.to_start_buttons)
+    if update.effective_chat['type'] == 'group' or update.effective_chat['type'] == 'supergroup':
+        update.message.reply_text("Click the Button, I'll show you what I can do.", reply_markup=InlineKeyboardMarkup(
+            [
+                [InlineKeyboardButton('🃏', url='https://t.me/hisokaDankBot?start=true')]
+            ]
+        ))
+    else:
+        st = ToStart(update.effective_user.first_name)
+        update.message.reply_photo(
+            photo=st.to_start_photo, caption=st.to_start_text, reply_markup=st.to_start_buttons)
 
 
 def main():
@@ -193,7 +200,7 @@ def main():
     dp.add_handler(CommandHandler('hinsult', insult, run_async=True))
     dp.add_handler(CommandHandler('aa', aa, run_async=True))
     dp.add_handler(CommandHandler(
-        'start', start, filters=Filters.chat_type.private, run_async=True))
+        'start', start, run_async=True))
     updater.start_polling()
     updater.idle()
 
