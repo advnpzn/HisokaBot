@@ -4,7 +4,7 @@ import random
 from HisokaBot import dp, updater
 from HisokaBot.helpers.keyboards import *
 from HisokaBot.funcs.meme import meme
-from HisokaBot.funcs.anime import anime
+from HisokaBot.funcs.anime import anime_manga
 from HisokaBot.funcs.imgProcess import *
 from telegram.ext import CommandHandler, CallbackContext, Filters, ConversationHandler, MessageHandler
 from HisokaBot.handlers.callbackquery_handlers import ToStart
