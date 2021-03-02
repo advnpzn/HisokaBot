@@ -1,5 +1,6 @@
 from telegram import ParseMode, ForceReply
 import random
+from HisokaBot import logger
 from HisokaBot.handlers.img_process_cmd_handlers import *
 from HisokaBot import dp, updater
 from HisokaBot.helpers.keyboards import *
@@ -22,15 +23,16 @@ def meme_generate(update: Update, context: CallbackContext) -> None:
                                        f"UpVotes ⬆️: {m['up_votes']}",
                                reply_markup=url_post_btn,
                                parse_mode=ParseMode.HTML)
+    logger.info(msg=f"@{update.effective_user.username} did /meme ^^")
 
 
 def insult(update: Update, context: CallbackContext) -> None:
-    print(update.message.from_user.username)
     try:
         if update.message.reply_to_message.from_user.username == 'hisokaDankBot':
             update.message.reply_text(
                 "Did you know?\nBungee Gum possesses the properties of both rubber and gum.\n"
                 "Don't try anything funny with me bro.")
+            logger.info(msg=f"@{update.effective_user.username} did /hinsult to Hisoka.")
         else:
             try:
                 username_quote = '@'+update.message.reply_to_message.from_user.username
@@ -45,13 +47,16 @@ def insult(update: Update, context: CallbackContext) -> None:
                 if "##name##" in insult:
                     insult = insult.replace("##name##", username_quote)
                     update.message.reply_text(insult, quote=False)
+                    logger.info(msg=f"@{update.effective_user.username} did /hinsult to {username_quote}. SUCCEED")
                 else:
                     update.message.reply_text(f'{username_user} {insult}\n\nYou just got played yourself.\n'
                                               'Remember Bungee Gum?\nJust like that, this possesses both\n'
                                               'the properties of insulting and getting insulted.\nHave a Nice Day :)',
                                               quote=False)
+                    logger.info(msg=f"@{update.effective_user.username} did /hinsult to {username_quote}. FAILED")
     except AttributeError:
         update.message.reply_text('Reply to a User, Idiot!')
+        logger.info(msg=f"@{update.effective_user.username} did /hinsult [RTUI]")
 
 
 def anime_cmd(update: Update, context: CallbackContext):
@@ -61,11 +66,13 @@ def anime_cmd(update: Update, context: CallbackContext):
                                   reply_markup=ForceReply(force_reply=True))
         return 69
     else:
+        logger.info(msg=f"@{update.effective_user.username} did /anime {query}")
         anime_manga(update, context, query, 'ANIME')
 
 
 def anime_state(update: Update, context: CallbackContext):
     query = update.message.text
+    logger.info(msg=f"@{update.effective_user.username} did /anime and replied '{query}'")
     anime_manga(update, context, query, 'ANIME')
     return 420
 
@@ -77,14 +84,15 @@ def manga_cmd(update: Update, context: CallbackContext):
                                   reply_markup=ForceReply(force_reply=True))
         return 42069
     else:
+        logger.info(msg=f"@{update.effective_user.username} did /manga {query}")
         anime_manga(update, context, query, 'MANGA')
 
 
 def manga_state(update: Update, context: CallbackContext):
     query = update.message.text
+    logger.info(msg=f"@{update.effective_user.username} did /manga and replied '{query}'")
     anime_manga(update, context, query, 'MANGA')
     return 177013
-
 
 
 def cancel(update: Update, context: CallbackContext):
