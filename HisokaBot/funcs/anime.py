@@ -78,7 +78,7 @@ def anime_manga_when_clicked(update: Update, context: CallbackContext):
         replace('(', '\\(').replace(')', '\\)'). \
         replace(f"\(https://img\.anili\.st/media/{data['id']}\)",
                 f"(https://img\.anili\.st/media/{data['id']})"). \
-        replace("None", "").replace("-", "\-")
+        replace("None", "").replace("-", "\-").replace("!", "\!")
     context.bot.send_message(chat_id=update.effective_chat.id,
                              text=caption,
                              parse_mode=ParseMode.MARKDOWN_V2,
