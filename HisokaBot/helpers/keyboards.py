@@ -7,12 +7,12 @@ back_to_imgmanipulation_help_button = InlineKeyboardMarkup(
         ])
 
 back_to_anime_help_button = InlineKeyboardMarkup(
-        [[InlineKeyboardButton('🔙', callback_data='back_to_anime')]])
+        [[InlineKeyboardButton('🔙', callback_data='back_to_am')]])
 
 help_funcs_buttons = InlineKeyboardMarkup(
         [
             [InlineKeyboardButton('Image Manipulation', callback_data='h_imgmanipulation'), InlineKeyboardButton(
-                'Anime', callback_data='h_anime')],
+                'Anime/Manga', callback_data='h_am')],
             [InlineKeyboardButton('🔙', callback_data='back_to_start')],
 
         ]
@@ -20,8 +20,8 @@ help_funcs_buttons = InlineKeyboardMarkup(
 
 anime_buttons = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton(
-                    'Search Anime', callback_data='anime_animesearch')],
+                [InlineKeyboardButton('Search Anime', callback_data='am_animesearch'),
+                 InlineKeyboardButton('Search Manga', callback_data='am_mangasearch')],
                 [InlineKeyboardButton('🔙', callback_data='back_to_help')],
             ]
         )
