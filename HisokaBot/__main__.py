@@ -160,6 +160,22 @@ def anime_state(update: Update, context: CallbackContext):
     return 420
 
 
+def manga_cmd(update: Update, context: CallbackContext):
+    query = ' '.join(context.args)
+    if len(query) < 1:
+        update.message.reply_text('Enter the Manga that you want to Search.',
+                                  reply_markup=ForceReply(force_reply=True))
+        return 42069
+    else:
+        anime_manga(update, context, query, 'MANGA')
+
+
+def manga_state(update: Update, context: CallbackContext):
+    query = update.message.text
+    anime_manga(update, context, query, 'MANGA')
+    return 177013
+
+
 def cancel(update: Update, context: CallbackContext):
     context.bot.sendMessage("You cancelled.")
     return ConversationHandler.END
@@ -184,7 +200,14 @@ def main():
                                            69: [MessageHandler(Filters.text & ~ Filters.command, anime_state)]
                                        },
                                        fallbacks=[CommandHandler('cancel', cancel, run_async=True)],
-                                       conversation_timeout=120,
+                                       conversation_timeout=60,
+                                       allow_reentry=True))
+    dp.add_handler(ConversationHandler(entry_points=[CommandHandler('manga', manga_cmd, run_async=True)],
+                                       states={
+                                           42069: [MessageHandler(Filters.text & ~ Filters.command, manga_state)]
+                                       },
+                                       fallbacks=[CommandHandler('cancel', cancel, run_async=True)],
+                                       conversation_timeout=60,
                                        allow_reentry=True))
     dp.add_handler(CommandHandler("drake", drake, run_async=True))
     dp.add_handler(CommandHandler("slap", slap, run_async=True))
