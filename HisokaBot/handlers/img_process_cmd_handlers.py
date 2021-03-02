@@ -9,10 +9,10 @@ def get(update: Update, context: CallbackContext, cmd):
     try:
         pfp = update.message.reply_to_message.from_user.get_profile_photos(
         ).photos[0][0].get_file().download()
-        shutil.move(pfp, "funcs/pfp/file_1.jpg")
+        shutil.move(pfp, "HisokaBot/funcs/pfp/file_1.jpg")
         pfp = update.message.from_user.get_profile_photos(
         ).photos[0][0].get_file().download()
-        shutil.move(pfp, "funcs/pfp/file_0.jpg")
+        shutil.move(pfp, "HisokaBot/funcs/pfp/file_0.jpg")
     except AttributeError:
         update.message.reply_text("Reply to an User!")
         logger.info(msg=f"@{update.effective_user.username} /{cmd} [RTUI]")
