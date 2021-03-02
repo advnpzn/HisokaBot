@@ -1,11 +1,10 @@
-from telegram import Update, ParseMode, ForceReply
-import shutil
+from telegram import ParseMode, ForceReply
 import random
+from HisokaBot.handlers.img_process_cmd_handlers import *
 from HisokaBot import dp, updater
 from HisokaBot.helpers.keyboards import *
 from HisokaBot.funcs.meme import meme
 from HisokaBot.funcs.anime import anime_manga
-from HisokaBot.funcs.imgProcess import *
 from telegram.ext import CommandHandler, CallbackContext, Filters, ConversationHandler, MessageHandler
 from HisokaBot.handlers.callbackquery_handlers import ToStart
 
@@ -25,95 +24,6 @@ def meme_generate(update: Update, context: CallbackContext) -> None:
                                parse_mode=ParseMode.HTML)
 
 
-def get(update, context):
-    try:
-        pfp = update.message.reply_to_message.from_user.get_profile_photos(
-        ).photos[0][0].get_file().download()
-        shutil.move(pfp, "HisokaBot/funcs/pfp/file_1.jpg")
-        pfp = update.message.from_user.get_profile_photos(
-        ).photos[0][0].get_file().download()
-        shutil.move(pfp, "HisokaBot/funcs/pfp/file_0.jpg")
-    except AttributeError:
-        update.message.reply_text("Reply to an User!")
-
-
-def drake(update: Update, context: CallbackContext) -> None:
-    get(update, context)
-    drake_meme()
-    update.message.reply_photo(open('output.jpg', 'rb'))
-    os.remove('output.jpg')
-
-
-def slap(update: Update, context: CallbackContext) -> None:
-    get(update, context)
-    batman_slap()
-    update.message.reply_photo(open('output.jpg', 'rb'))
-    os.remove('output.jpg')
-
-
-def shit(update: Update, context: CallbackContext) -> None:
-    get(update, context)
-    ew_stepped_in_shit()
-    update.message.reply_photo(open('output.jpg', 'rb'))
-    os.remove('output.jpg')
-
-
-def cat(update: Update, context: CallbackContext) -> None:
-    get(update, context)
-    woman_yelling_at_cat()
-    update.message.reply_photo(open('output.jpg', 'rb'))
-    os.remove('output.jpg')
-
-
-def forme(update: Update, context: CallbackContext) -> None:
-    get(update, context)
-    is_for_me()
-    update.message.reply_photo(open('output.jpg', 'rb'))
-    os.remove('output.jpg')
-
-
-def butterfly(update: Update, context: CallbackContext) -> None:
-    get(update, context)
-    is_that_butterfly()
-    update.message.reply_photo(open('output.jpg', 'rb'))
-    os.remove('output.jpg')
-
-
-def bruh(update: Update, context: CallbackContext) -> None:
-    get(update, context)
-    angry_pakistan_fan()
-    update.message.reply_photo(open('output.jpg', 'rb'))
-    os.remove('output.jpg')
-
-
-def strong(update: Update, context: CallbackContext) -> None:
-    get(update, context)
-    strong_doge_weak_doge()
-    update.message.reply_photo(open('output.jpg', 'rb'))
-    os.remove('output.jpg')
-
-
-def weak(update: Update, context: CallbackContext) -> None:
-    get(update, context)
-    weak_doge()
-    update.message.reply_photo(open('output.jpg', 'rb'))
-    os.remove('output.jpg')
-
-
-def fact(update: Update, context: CallbackContext) -> None:
-    get(update, context)
-    facts_book()
-    update.message.reply_photo(open('output.jpg', 'rb'))
-    os.remove('output.jpg')
-
-
-def aa(update: Update, context: CallbackContext) -> None:
-    cxt = " ".join(context.args)
-    htv_aliens_guy(cxt)
-    update.message.reply_photo(open('output.png', 'rb'), quote=False)
-    os.remove('output.png')
-
-
 def insult(update: Update, context: CallbackContext) -> None:
     print(update.message.from_user.username)
     try:
@@ -130,7 +40,7 @@ def insult(update: Update, context: CallbackContext) -> None:
                 username_user = '@'+update.message.from_user.username
             except TypeError:
                 username_user = update.message.from_user.first_name
-            with open('HisokaBot/insult.txt') as f:
+            with open('insult.txt') as f:
                 insult = random.choice(f.readlines())
                 if "##name##" in insult:
                     insult = insult.replace("##name##", username_quote)
@@ -174,6 +84,7 @@ def manga_state(update: Update, context: CallbackContext):
     query = update.message.text
     anime_manga(update, context, query, 'MANGA')
     return 177013
+
 
 
 def cancel(update: Update, context: CallbackContext):
