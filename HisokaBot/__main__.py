@@ -107,10 +107,12 @@ def start(update: Update, context: CallbackContext):
                 [InlineKeyboardButton('🃏', url='https://t.me/hisokaDankBot?start=true')]
             ]
         ))
+        logger.info(msg=f"@{update.effective_user.username} did /start [GROUP/SUPERGROUP]")
     else:
         st = ToStart(update.effective_user.first_name)
         update.message.reply_photo(
             photo=st.to_start_photo, caption=st.to_start_text, reply_markup=st.to_start_buttons)
+        logger.info(msg=f"@{update.effective_user.username} did /start [PRIVATE]")
 
 
 def main():
