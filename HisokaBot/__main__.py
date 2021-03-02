@@ -151,12 +151,12 @@ def anime_cmd(update: Update, context: CallbackContext):
                                   reply_markup=ForceReply(force_reply=True))
         return 69
     else:
-        anime(update, context, query)
+        anime_manga(update, context, query)
 
 
 def anime_state(update: Update, context: CallbackContext):
     query = update.message.text
-    anime(update, context, query)
+    anime_manga(update, context, query)
     return 420
 
 
