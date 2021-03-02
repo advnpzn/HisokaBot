@@ -138,5 +138,40 @@ Reply to another user in a Group with /drake and get modified Drake meme picture
                      'text': '''
 Do /anime and reply to it with an Anime Name or you can do /anime (anime)
 e.g. /anime Eromanga Sensei
-                        '''}
+                        '''},
+    'search_manga': {'pic': 'https://telegra.ph/file/d6a1fff9b205cd86292e0.png',
+                     'text': '''
+Do /manga and reply to it with a manga Name or you can do /manga (manga)
+e.g. /manga black clover
+                        '''},
+    'anime_manga_section': {'pic': 'https://telegra.ph/file/2f487c56d138ec4816003.png',
+                            'text': '''
+Welcome to Anime/Manga Help Section UwU !
+Click the Buttons to see their functions nyaa~
+                        '''},
+    'help_section': {'pic': 'https://telegra.ph/file/1bce7d2f3655d4bbdaab4.png',
+                     'text': '''
+Click the Buttons. 
+                        '''},
+    'img_manipulation_section': {'pic': 'https://telegra.ph/file/2c5680e4f4907cd0afe2e.png',
+                                 'text': '''
+Welcome to Image Manipulation Section!
+We can even make you beautiful like Palm.
+(Palm is the girl in photo)
+What are you waiting for then..
+                        '''},
+}
+
+templates = {
+    'drake': 'https://telegra.ph/file/a3c4063b97478d702fb9f.jpg',
+    'slap': 'https://telegra.ph/file/43393d9fcf9ca911f157b.jpg',
+    'bruh': 'https://telegra.ph/file/376baa4636d7411205848.jpg',
+    'htv_guy': 'https://telegra.ph/file/3d911a923e496df9f22dc.jpg',
+    'strong': 'https://telegra.ph/file/b0db6b97c4d2922e0317a.jpg',
+    'weak': 'https://telegra.ph/file/9bf2877489d728c0c35e3.jpg',
+    'fact': 'https://telegra.ph/file/fddcbb8ff22488fa0c297.jpg',
+    'shit': 'https://telegra.ph/file/0ab5e3e9d0951b2dbb109.jpg',
+    'butterfly': 'https://telegra.ph/file/eb22b3e275a8cd3728490.jpg',
+    'forme': 'https://telegra.ph/file/60316c94f2f860aaa1615.jpg',
+    'cat': 'https://telegra.ph/file/5ede2db12f17f6306d906.jpg',
 }
