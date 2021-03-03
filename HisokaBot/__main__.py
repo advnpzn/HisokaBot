@@ -101,7 +101,7 @@ def cancel(update: Update, context: CallbackContext):
 
 
 def start(update: Update, context: CallbackContext):
-    if update.effective_chat['type'] == 'group' or update.effective_chat['type'] == 'supergroup':
+    if update.effective_chat['type'] in ('group','supergroup'):
         update.message.reply_text("Click the Button, I'll show you what I can do.", reply_markup=InlineKeyboardMarkup(
             [
                 [InlineKeyboardButton('🃏', url='https://t.me/hisokaDankBot?start=true')]
