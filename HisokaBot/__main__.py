@@ -42,7 +42,7 @@ def insult(update: Update, context: CallbackContext) -> None:
                 username_user = '@'+update.message.from_user.username
             except TypeError:
                 username_user = update.message.from_user.first_name
-            with open('insult.txt') as f:
+            with open('HisokaBot/insult.txt') as f:
                 insult = random.choice(f.readlines())
                 if "##name##" in insult:
                     insult = insult.replace("##name##", username_quote)
