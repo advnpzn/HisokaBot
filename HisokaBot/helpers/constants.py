@@ -55,7 +55,7 @@ query ($type: MediaType $search: String, $page: Int, $perPage: Int) {
 }
 '''
 
-ANIME_STR = "<b>{} \| {} \| {} </b>[ ⠀]({})\n"\
+ANIME_STR = "<b>{} \| {} \| {} </b>[‌]({})\n"\
             "• <b>Type :</b> <pre>{}</pre>\n"\
             "• <b>Genre :</b> <pre>{}</pre>\n"\
             "• <b>Status :</b> <pre>{}</pre>\n"\
