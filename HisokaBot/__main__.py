@@ -121,14 +121,14 @@ def main():
                                            69: [MessageHandler(Filters.text & ~ Filters.command, anime_state)]
                                        },
                                        fallbacks=[CommandHandler('cancel', cancel, run_async=True)],
-                                       conversation_timeout=60,
+                                       conversation_timeout=10,
                                        allow_reentry=True))
     dp.add_handler(ConversationHandler(entry_points=[CommandHandler('manga', manga_cmd, run_async=True)],
                                        states={
                                            42069: [MessageHandler(Filters.text & ~ Filters.command, manga_state)]
                                        },
                                        fallbacks=[CommandHandler('cancel', cancel, run_async=True)],
-                                       conversation_timeout=60,
+                                       conversation_timeout=10,
                                        allow_reentry=True))
     dp.add_handler(CommandHandler("drake", drake, run_async=True))
     dp.add_handler(CommandHandler("slap", slap, run_async=True))
