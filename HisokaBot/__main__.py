@@ -63,7 +63,7 @@ def anime_cmd(update: Update, context: CallbackContext):
     query = ' '.join(context.args)
     if len(query) < 1:
         update.message.reply_text('Enter the Anime that you want to Search.',
-                                  reply_markup=ForceReply(force_reply=True))
+                                  reply_markup=ForceReply(force_reply=True, selective=True))
         return 69
     else:
         logger.info(msg=f"@{update.effective_user.username} did /anime {query}")
@@ -81,7 +81,7 @@ def manga_cmd(update: Update, context: CallbackContext):
     query = ' '.join(context.args)
     if len(query) < 1:
         update.message.reply_text('Enter the Manga that you want to Search.',
-                                  reply_markup=ForceReply(force_reply=True))
+                                  reply_markup=ForceReply(force_reply=True, selective=True))
         return 42069
     else:
         logger.info(msg=f"@{update.effective_user.username} did /manga {query}")
