@@ -7,6 +7,22 @@ ANILIST_GRAPHQL_URI = os.environ.get('anilist_uri')
 DATABASE_URI = os.environ.get("database_uri")
 
 
+searchChars = '''
+query ($search: String, $page: Int, $perPage: Int) {
+  Page(page: $page, perPage: $perPage){
+    characters(search: $search) {
+      name {
+        full
+      }
+      image {
+        large
+      }
+      favourites
+      description
+    }
+  }
+}'''
+
 searchAnime = '''
 query ($type: MediaType $search: String, $page: Int, $perPage: Int) {
   Page(page: $page, perPage: $perPage){
@@ -17,6 +33,9 @@ query ($type: MediaType $search: String, $page: Int, $perPage: Int) {
         native
       }
       id
+      coverImage {
+        large
+      }
       type
       genres
       status
