@@ -1,26 +1,37 @@
 import requests
-from HisokaBot.helpers.constants import ANILIST_GRAPHQL_URI, searchAnime, ANIME_STR
+from HisokaBot.helpers.constants import ANILIST_GRAPHQL_URI, searchAnime, ANIME_STR, searchChars
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, ParseMode
 from telegram.ext import CallbackQueryHandler, CallbackContext
+from HisokaBot.helpers.anime_manga_htm_2_mdv2 import anime_manga_html_2_mdv2
 from HisokaBot import dp
 
 user_anime_dict = {}
 user_manga_dict = {}
 
 
-def search_anime_manga(name, stype):
+def search_anime_manga(name: str, stype: str,perPage: int):
     name = {
         'search': name,
         'page': 1,
-        'perPage': 5,
+        'perPage': perPage,
         'type': stype
     }
     r = requests.post(ANILIST_GRAPHQL_URI, json={'query': searchAnime, 'variables': name}).json()
     return r['data']['Page']['media']
 
 
+def s_chars(name: str, perPage: int):
+    var = {
+        "search": f"{name}",
+        "page": 1,
+        "perPage": perPage
+    }
+    r = requests.post(url='https://graphql.anilist.co', json={'query': searchChars, 'variables': var}).json()
+    return r['data']['Page']['characters']
+
+
 def anime_manga(update: Update, context: CallbackContext, name, stype):
-    data = search_anime_manga(name, stype)
+    data = search_anime_manga(name, stype, 6)
     user = update.effective_user
     if stype == 'ANIME':
         user_anime_dict[user.id] = data
@@ -71,16 +82,8 @@ def anime_manga_when_clicked(update: Update, context: CallbackContext):
         f"{data['startDate']['day']}-{data['startDate']['month']}-{data['startDate']['year']}",
         ', '.join(data['tags'][i]['name'] for i in range(len(data['tags']))),
         data['description'])
-    caption = caption.replace('<b>', '*').replace('</b>', '*'). \
-        replace('<pre>', '`').replace('</pre>', '`'). \
-        replace('<i>', '').replace('</i>', ''). \
-        replace('<br>', '\n').replace('.', '\\.'). \
-        replace('(', '\\(').replace(')', '\\)'). \
-        replace(f"\(https://img\.anili\.st/media/{data['id']}\)",
-                f"(https://img\.anili\.st/media/{data['id']})"). \
-        replace("None", "").replace("-", "\-").replace("!", "\!")
     context.bot.send_message(chat_id=update.effective_chat.id,
-                             text=caption,
+                             text=anime_manga_html_2_mdv2(caption, data['id']),
                              parse_mode=ParseMode.MARKDOWN_V2,
                              reply_markup=InlineKeyboardMarkup(
                                  [
