@@ -2,7 +2,7 @@ from HisokaBot.helpers.constants import searchAnime
 from telegram import Update, InlineQueryResultArticle, InputTextMessageContent, InlineKeyboardMarkup, \
     InlineKeyboardButton, ParseMode
 from telegram.ext import InlineQueryHandler, CallbackContext
-from HisokaBot.helpers.anime_manga_htm_2_mdv2 import anime_manga_html_2_mdv2
+from HisokaBot.helpers.anime_manga_html_2_mdv2 import anime_manga_html_2_mdv2
 from telegram.constants import MAX_MESSAGE_LENGTH
 from uuid import uuid4
 from HisokaBot.funcs.anime import search_anime_manga, s_chars
