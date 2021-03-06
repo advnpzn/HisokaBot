@@ -2,7 +2,7 @@ import requests
 from HisokaBot.helpers.constants import ANILIST_GRAPHQL_URI, searchAnime, ANIME_STR, searchChars
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, ParseMode
 from telegram.ext import CallbackQueryHandler, CallbackContext
-from HisokaBot.helpers.anime_manga_htm_2_mdv2 import anime_manga_html_2_mdv2
+from HisokaBot.helpers.anime_manga_html_2_mdv2 import anime_manga_html_2_mdv2
 from HisokaBot import dp
 
 user_anime_dict = {}
