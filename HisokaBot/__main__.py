@@ -1,12 +1,13 @@
 from telegram import ParseMode, ForceReply
 import random
-from HisokaBot import logger
 from HisokaBot.handlers.img_process_cmd_handlers import *
 from HisokaBot import dp, updater
 from HisokaBot.helpers.keyboards import *
 from HisokaBot.funcs.meme import meme
+from HisokaBot.handlers.inlinequery_handlers import inline_search
 from HisokaBot.funcs.anime import anime_manga
-from telegram.ext import CommandHandler, CallbackContext, Filters, ConversationHandler, MessageHandler
+from telegram.ext import CommandHandler, CallbackContext, Filters, ConversationHandler, MessageHandler, \
+    InlineQueryHandler
 from HisokaBot.handlers.callbackquery_handlers import ToStart
 
 
@@ -116,6 +117,7 @@ def start(update: Update, context: CallbackContext):
 
 
 def main():
+    dp.add_handler(InlineQueryHandler(inline_search, run_async=True))
     dp.add_handler(ConversationHandler(entry_points=[CommandHandler('anime', anime_cmd, run_async=True)],
                                        states={
                                            69: [MessageHandler(Filters.text & ~ Filters.command, anime_state)]
