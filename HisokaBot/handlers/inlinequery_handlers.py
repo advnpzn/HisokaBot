@@ -207,12 +207,14 @@ def inline_search_tc(update: Update, context: CallbackContext):
 
 def inline_search_neko(update: Update, context: CallbackContext):
     query = update.inline_query.query
+    neko_url = nekos.cat()
     s = query.replace('tc', '')
     update.inline_query.answer(results=[
     InlineQueryResultPhoto(
         id=uuid4(),
-        photo_url=nekos.cat(),
-        title='Neko'
+        photo_url=neko_url,
+        title='Neko',
+        thumb_url=neko_url
     )])
 
 def inline_search_owoify(update: Update, context: CallbackContext):
