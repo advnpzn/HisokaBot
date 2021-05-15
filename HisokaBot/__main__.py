@@ -1,4 +1,5 @@
-from telegram import ParseMode, ForceReply
+from telegram import ParseMode, ForceReply, InputMediaPhoto
+import nekos
 import random
 from HisokaBot.handlers.img_process_cmd_handlers import *
 from HisokaBot import dp, updater
@@ -116,6 +117,18 @@ def start(update: Update, context: CallbackContext):
         logger.info(msg=f"@{update.effective_user.username} did /start [PRIVATE]")
 
 
+def text_cat(update: Update, context: CallbackContext):
+    update.message.reply_text(text=nekos.textcat(), quote=False)
+
+
+def show_neko_img(update: Update, context: CallbackContext):
+    update.message.reply_photo(photo=InputMediaPhoto(nekos.cat()), quote=False)
+
+def owo_ify(update: Update, context: CallbackContext):
+    text = " ".join(context.args)
+    update.message.reply_text(text=nekos.owoify(text), quote=False)
+
+
 def main():
     dp.add_handler(InlineQueryHandler(inline_search, run_async=True))
     dp.add_handler(ConversationHandler(entry_points=[CommandHandler('anime', anime_cmd, run_async=True)],
@@ -145,6 +158,9 @@ def main():
     dp.add_handler(CommandHandler("bruh", bruh, run_async=True))
     dp.add_handler(CommandHandler('hinsult', insult, run_async=True))
     dp.add_handler(CommandHandler('aa', aa, run_async=True))
+    dp.add_handler(CommandHandler('tc', text_cat, run_async=True))
+    dp.add_handler(CommandHandler('neko', show_neko_img, run_async=True))
+    dp.add_handler(CommandHandler('owo', owo_ify, run_async=True))
     dp.add_handler(CommandHandler(
         'start', start, run_async=True))
     updater.start_polling()
