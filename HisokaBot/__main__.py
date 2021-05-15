@@ -127,6 +127,37 @@ def show_neko_img(update: Update, context: CallbackContext):
 def owo_ify(update: Update, context: CallbackContext):
     text = " ".join(context.args)
     update.message.reply_text(text=nekos.owoify(text), quote=False)
+    
+    
+def cheems_ify(update: Update, context: CallbackContext):
+    text = " ".join(context.args)
+    holyWords = {
+    'burger': 'burmger',
+    'bad': 'bamd',
+    'batman': 'bamtman',
+    'cheese': 'cheems',
+    'cheems': 'cheems',
+    'cheeseburger': 'cheemsburger',
+    'doge': 'domge',
+    'female': 'f*male',
+    'history': 'himstory',
+    'nigger': 'n-word',
+    'nigga': 'n-word',
+    'retard': 'remtard',
+    'woman': 'w*man',
+    'women': 'w*men',
+    'walter': 'walmter',
+    'motherfucker': 'momtherfumcker',
+    }
+
+    for i in range(len(text)):
+        if text[i] in holyWords.keys():
+            text[i] = holyWords[text[i]]
+
+    test = " ".join(text)
+    cheemsed = test.replace('ck', 'mck').replace('ll', 'mll').replace('n', 'mn')
+    update.message.reply_text(text=cheemsed, quote=False)
+
 
 
 def main():
@@ -161,6 +192,7 @@ def main():
     dp.add_handler(CommandHandler('tc', text_cat, run_async=True))
     dp.add_handler(CommandHandler('neko', show_neko_img, run_async=True))
     dp.add_handler(CommandHandler('owo', owo_ify, run_async=True))
+    dp.add_handler(CommandHandler('cheemsify', cheems_ify, run_async=True))
     dp.add_handler(CommandHandler(
         'start', start, run_async=True))
     updater.start_polling()
