@@ -122,7 +122,7 @@ def text_cat(update: Update, context: CallbackContext):
 
 
 def show_neko_img(update: Update, context: CallbackContext):
-    update.message.reply_photo(photo=InputMediaPhoto(nekos.cat()), quote=False)
+    update.message.reply_photo(photo=nekos.cat(), quote=False)
 
 def owo_ify(update: Update, context: CallbackContext):
     text = " ".join(context.args)
