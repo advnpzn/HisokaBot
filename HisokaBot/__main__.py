@@ -130,7 +130,7 @@ def owo_ify(update: Update, context: CallbackContext):
     
     
 def cheems_ify(update: Update, context: CallbackContext):
-    text = " ".join(context.args).splt(" ")
+    text = " ".join(context.args).split(" ")
     print(text)
     holyWords = {
     'burger': 'burmger',
