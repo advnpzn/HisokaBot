@@ -12,7 +12,7 @@ from HisokaBot.helpers.constants import ANIME_STR, searchChars
 
 def inline_search(update: Update, context: CallbackContext):
     query = update.inline_query.query
-        to_search = ['Anime', 'Manga', 'Character', 'Owo', 'Neko', 'Cheemsify', 'tc']
+    to_search = ['Anime', 'Manga', 'Character', 'Owo', 'Neko', 'Cheemsify', 'tc']
     if to_search[2] in query:
         inline_search_character(update, context)
     elif to_search[1] in query:
