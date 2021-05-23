@@ -1,1 +1,1 @@
-worker: python3 -m HisokaBot
+worker: python -m HisokaBot
