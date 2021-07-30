@@ -46,7 +46,7 @@ img_manipulation_buttons = InlineKeyboardMarkup(
 
 start_buttons = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton('GitHub', url='https://github.com/adenosinetp10'), InlineKeyboardButton(
-                    'Developer', url='https://t.me/ATPnull'), InlineKeyboardButton('Help', callback_data='help')]
+                [InlineKeyboardButton('GitHub', url='https://github.com/notPlasticCat'), InlineKeyboardButton(
+                    'Developer', url='https://t.me/plastic_cat'), InlineKeyboardButton('Help', callback_data='help')]
             ]
         )
