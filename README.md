@@ -5,4 +5,4 @@ A telegram bot that does a lot of things and group management isn't one of them.
 
 # Command
 >`/start` - Check it.
-`
+
